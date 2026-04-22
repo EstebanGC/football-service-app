@@ -14,3 +14,10 @@ def home():
 def get_leagues():
     leagues = SoccerService.get_available_leagues()
     return jsonify(leagues)
+
+@main.route('/api/schedule/<league>/<season>')
+def get_league_schedule(league, season):
+    data = SoccerService.get_schedule(league, season)
+    if not data:
+        return jsonify({'error': 'Matches not found'}), 404
+    return jsonify(data)

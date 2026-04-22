@@ -17,5 +17,16 @@ class SoccerService:
             df = espn.read_standings()
             return df.reset_index().to_dict(orient='records')
         except Exception as e:
-            print(f"Error al obtener posiciones: {e}")
+            print(f"Error when getting standings: {e}")
+            return []
+
+    @staticmethod
+    def get_schedule(league_id, season):
+        try:
+            espn = sd.ESPN(leagues=league_id, seasons=season)
+            df = espn.read_schedule()
+
+            return df.reset_index().to_dict(orient='records')
+        except Exception as e:
+            print(f"Error when getting schedule: {e}")
             return []
